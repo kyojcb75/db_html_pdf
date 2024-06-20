@@ -7,56 +7,73 @@
     </title>
 </head>
 <body>
-    <h2><strong>Interaccion: {{ id }}</strong></h2>
+<h2><strong>Interaccion: {{ id }}</strong></h2>
 <table>
-<tbody>
-<tr>
-<td style="width: 25%; border-style: none;"><strong>id de la interaccion&nbsp; &nbsp;&nbsp;</strong></td>
-<td style="width: 25%; border-style: solid; background-color: #74f9ce;"><strong>{{ id }}</strong></td>
-<td style="width: 25%; border-style: none;">fase</td>
-<td style="width: 25%;">{{ fase }}</td>
-</tr>
-<tr>
-<td style="width: 25%; border-style: none;">asignado:</td>
-<td style="width: 25%; border-color: #96D4D4; border-style: solid;">{{ asignado }}</td>
-<td style="width: 25%; border-style: none;">fecha creacion</td>
-<td style="width: 25%;">{{ fcreacion }}</td>
-</tr>
-</tbody>
+    <tbody>
+    <tr>
+        <td style="width: 25%; border-style: none;"><strong>id de la interaccion&nbsp; &nbsp;&nbsp;</strong></td>
+        <td style="width: 25%; border-style: solid; background-color: #74f9ce;"><strong>{{ id }}</strong></td>
+        <td style="width: 25%; border-style: none;">fase</td>
+        <td style="width: 25%;">{{ fase }}</td>
+    </tr>
+    <tr>
+        <td style="width: 25%; border-style: none;">asignado:</td>
+        <td style="width: 25%; border-color: #96D4D4; border-style: solid;">{{ asignado }}</td>
+        <td style="width: 25%; border-style: none;">fecha creacion</td>
+        <td style="width: 25%;">{{ fcreacion }}</td>
+    </tr>
+    </tbody>
 </table>
 <table style="border-collapse: collapse; width: 100%;" border="1">
-<tbody>
-<tr>
-<td style="width: 100%;">
-<p>creador solicitud: {{ abierto_por }}</p>
-<p>{{ titulo }}</p>
-<table style="border-collapse: collapse; width: 100%; height: 54px;" border="1">
-<tbody>
-<tr style="height: 18px;">
-<td style="width: 25%; height: 18px;">contacto</td>
-<td style="width: 25%; height: 18px;">{{ contacto }}</td>
-<td style="width: 25%; height: 18px;">abierto_por</td>
-<td style="width: 25%; height: 18px;">{{ abierto_por }}</td>
-</tr>
-<tr style="height: 18px;">
-<td style="width: 25%; height: 18px;">categoria</td>
-<td style="width: 25%; height: 18px;">{{ categoria }}</td>
-<td style="width: 25%; height: 18px;">sla_cumplido</td>
-<td style="width: 25%; height: 18px;">{{ sla_cumplido }}</td>
-</tr>
-<tr style="height: 18px;">
-<td style="width: 25%; height: 18px;">fecha cerrado</td>
-<td style="width: 25%; height: 18px;">{{ fcerrado }}</td>
-<td style="width: 25%; height: 18px;">accion_actualizacion</td>
-<td style="width: 25%; height: 18px;">{{ accion_actualizacion }}</td>
-</tr>
-</tbody>
-</table>
-  <p>descrpcion: {{ descripcion }} </p>
-  <p> solucion: {{ codigo_solucion }}</p>
-  </td>
-</tr>
-</tbody>
+    <tbody>
+    <tr>
+        <td style="width: 100%;">
+            <p>creador solicitud: {{ abierto_por }}</p>
+            <p>{{ titulo }}</p>
+            <table style="border-collapse: collapse; width: 100%; height: 54px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px;">contacto</td>
+                    <td style="width: 25%; height: 18px;">{{ contacto }}</td>
+                    <td style="width: 25%; height: 18px;">abierto_por</td>
+                    <td style="width: 25%; height: 18px;">{{ abierto_por }}</td>
+                </tr>
+
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px;">categoria</td>
+                    <td style="width: 25%; height: 18px;">{{ categoria }}</td>
+                    <td style="width: 25%; height: 18px;">sla_cumplido</td>
+                    <td style="width: 25%; height: 18px;">{{ sla_cumplido }}</td>
+                </tr>
+
+
+                <tr style="height: 18px;">
+                    <td style="width: 25%; height: 18px;">fecha cerrado</td>
+                    <td style="width: 25%; height: 18px;">{{ fcerrado }}</td>
+                    <td style="width: 25%; height: 18px;">accion_actualizacion</td>
+                    <td style="width: 25%; height: 18px;">{{ accion_actualizacion }}</td>
+                    <td style="width: 25%; height: 18px;">accion_actualizacion</td>
+                    <td style="width: 25%; height: 18px;">6</td>
+
+                </tr>
+                </tbody>
+            </table>
+            <p>descrpcion: {{ descripcion }} </p>
+            <p> solucion: {{ codigo_solucion }}</p>
+            <table style= "width: 100%;border-collapse: collapse;" border="1">
+                <tbody>
+                <tr>
+                    <td> Historico:</td>
+                </tr>
+                <tr>
+                    {{ historico }}
+                </tr>
+                </tbody>
+            </table>
+
+        </td>
+    </tr>
+    </tbody>
 </table>
 </body>
 </html>

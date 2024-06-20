@@ -34,13 +34,33 @@ def read_query():
     individual_data_general(df)
 
 
+def read_query_histo(id):
+    engine2 = sqlalchemy.create_engine(
+        'mssql+pyodbc://WIN-5K58DSURMPA\SQLEXPRESS/SMCOM?Trusted_Connection=yes&driver=ODBC+Driver+13+for+SQL+Server')
+    print("conexion cerrada:  ", engine2.connect().closed)
+    query_histo = "SELECT [DATESTAMP] as fecha_hora,[TYPE] as tipo ,[OPERATOR] as operador,[DESCRIPTION] as descripcion FROM ACTSVCMGTM1 where NUMBER='{id}'".format(
+        id=id)
+    df_histo = pd.read_sql_query(query_histo, engine2)
+    df_hys = pd.DataFrame(df_histo, columns=['fecha_hora', 'tipo', 'operador', 'descripcion'])
+
+    array = ["<tr><td >FECHA</td><td >TIPO</td><td>OPERADOR</td><td>DESCRIPCION</td></tr>"]
+    for ind_hys in range(len(df_hys)):
+        fecha = str(df_hys['fecha_hora'][ind_hys])
+        tipo = str(df_hys['tipo'][ind_hys])
+        operador = str(df_hys['operador'][ind_hys])
+        descripcion = str(df_hys['descripcion'][ind_hys])
+        array.append(
+            "<tr><td>" + fecha + "</td> <td>" + tipo + "</td><td>" + operador + "</td><td>" + descripcion + "</td></tr>")
+    return str(array).replace("[", "").replace("\'", "").replace(",", "").replace("]", "")
+
+
 def individual_data_general(data_frame):
     print(data_frame.shape)
-
+    # en columns se definen los campos que se traen desde la DB,
     dff = pd.DataFrame(data_frame, columns=['INCIDENT_ID', 'OPEN_TIME', 'OWNER_NAME', 'CURRENT_PHASE',
                                             'DESCRIPTION', 'CONTACT_NAME', 'OPENED_BY', 'UPDATED_BY', 'RESOLUTION',
                                             'CATEGORY', 'CLOSE_TIME', 'RESOLUTION_CODE', 'SLA_BREACH', 'UPDATE_ACTION',
-                                            'TITLE'])  # en columns se definen los campos que se traen desde la DB
+                                            'TITLE'])
     # drop_columns = row.dropna()
     for ind in dff.index:
         print(dff['INCIDENT_ID'][ind], dff['OPEN_TIME'][ind], dff['DESCRIPTION'][ind])
@@ -60,11 +80,13 @@ def individual_data_general(data_frame):
         accion_actualizacion = str(dff['UPDATE_ACTION'][ind])
         sla_cumplido = str(dff['SLA_BREACH'][ind])
         titulo = str(dff['TITLE'][ind])
-
+        historico = ("<table border=\"1\"  style=\"width: 100%; border-collapse: collapse;\">" + read_query_histo(id) + "</table>")
+        # print(historico)
         info = {"id": id, "fcreacion": t_creacion, "descripcion": descripcion, "abierto_por": abierto_por,
                 "asignado": asignado, "fase": fase, "contacto": contacto, "actualizado_por": actualizado_por,
                 "solucion": solucion, "categoria": categoria, "fcerrado": cerrado, "codigo_solucion": codigo_solucion,
-                "accion_actualizacion": accion_actualizacion, "sla_cumplido": sla_cumplido, "titulo": titulo}
+                "accion_actualizacion": accion_actualizacion, "sla_cumplido": sla_cumplido, "titulo": titulo,
+                "historico": historico}
         id_para_name = id
         html_form(info, id_para_name)
         print("===========================================")
@@ -80,8 +102,11 @@ def html_form(infor, id_nombre):
     file = open("temporal.html", "w")
     file.write(contenido)
     file.close()
-    pdfkit.from_file("temporal.html", "C:/attachmentsSmax/"+id_nombre + ".pdf")
+    pdfkit.from_file("temporal.html", "C:/attachmentsSmax/" + id_nombre + ".pdf")
 
 
 read_query()
 # pdfkit.from_file("temporal2.html", "w.pdf")
+
+# engine = sqlalchemy.create_engine('mssql://usuario:ABc12.@18.219.249.186\SQLEXPRESS/SMCOM?driver=SQL Server')
+# print("conexion cerrada:  ", engine.connect().closed)
